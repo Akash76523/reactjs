@@ -1,3 +1,5 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+
 .App {
   text-align: center;
 }
@@ -35,4 +37,33 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* styles.css */
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.image-item {
+  flex: 1 1 calc(33.33% - 20px); /* Adjust the width based on your design */
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.image-item img {
+  max-width: 100%;
+  height: auto;
+}
+/* Add this CSS in your stylesheet */
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-list img {
+  max-width: 100px; /* Adjust the max-width as needed */
+  max-height: 100px; /* Adjust the max-height as needed */
+  margin: 5px; /* Add margin between images */
 }
