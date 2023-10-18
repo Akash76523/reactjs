@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const SimilarImages = () => {
-  const [similarImagePaths, setSimilarImagePaths] = useState([]);
+  const [similarImages, setSimilarImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const queryImageFileName = 'download (5).jpeg'; // Replace with the actual query image file name
+  const queryImageFileName = "download (5).jpeg"; // Replace with the actual query image file name
 
   useEffect(() => {
     setLoading(true);
@@ -14,10 +14,9 @@ const SimilarImages = () => {
       .get(`http://localhost:5000/search-images?queryImageFileName=${queryImageFileName}`)
       .then((response) => {
         const data = response.data;
-        if (data.similarImagePaths && data.similarImagePaths.length > 0) {
-          setSimilarImagePaths(data.similarImagePaths);
-        } else {
-          setError("No similar images found");
+        if (data.success && data.all_group_images) {
+          const imageUrls = data.all_group_images.map((imageName) => `http://localhost:5000/images/${imageName}`);
+          setSimilarImages(imageUrls);
         }
       })
       .catch((error) => {
@@ -33,19 +32,18 @@ const SimilarImages = () => {
     <div>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {similarImagePaths.length > 0 && (
+      {similarImages.length > 0 && (
         <div>
-          <p>Matching Image (Cricketer MS Dhoni):</p>
-          {queryImageFileName === 'download (9).jpeg' && similarImagePaths.length > 0 && (
-            <img src={similarImagePaths[0]} alt="Cricketer MS Dhoni" />
-          )}
-          {queryImageFileName !== 'download (9).jpeg' && (
-            <p>Query image is not Cricketer MS Dhoni.</p>
-          )}
+          <p>Matching Images:</p>
+          <div className="image-container">
+            {similarImages.map((imageUrl, index) => (
+              <img key={index} src={imageUrl} alt={`Similar Image ${index}`} />
+            ))}
+          </div>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default SimilarImages;
