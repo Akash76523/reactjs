@@ -6,7 +6,7 @@ const SimilarImages = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const queryImageFileName = "download (5).jpeg"; // Replace with the actual query image file name
+  const queryImageFileName = "virat 2.jpeg"; 
 
   useEffect(() => {
     setLoading(true);

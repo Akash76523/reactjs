@@ -79,12 +79,15 @@ const FileUpload = () => {
   return (
     <>
       <div className="container">
-        <h2>Resumable File Upload</h2>
+        <h2>Google Photos</h2>
         <h3>{status}</h3>
         <input type="file" onChange={handleFileChange} multiple />
         <Button onClick={handleFileUpload}>Upload</Button>
         <Link to="/view-files">
           <Button style={{ marginLeft: "100px" }}>View Files</Button>
+        </Link>
+        <Link to="/view-images">
+          <Button style={{ marginLeft: "100px" }}>View Images</Button>
         </Link>
       </div>
     </>
