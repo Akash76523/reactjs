@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const ViewImages = () => {
@@ -28,12 +28,14 @@ const ViewImages = () => {
         )
         .then((response) => {
           const data = response.data;
+          console.log("Received data:", data);
 
           if (
             data.similarImagePaths &&
             data.similarImagePaths.matching_group_images
           ) {
-            setSimilarImages(data.similarImagePaths.matching_group_images);
+            setSimilarImages(data.similarImagePaths.matching_group_images.map((image) => image));
+            console.log(data.similarImagePaths.matching_group_images);
           }
         })
         .catch((error) => {
@@ -52,11 +54,7 @@ const ViewImages = () => {
         <div className="col">
           <label>
             Select an Image:
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
+            <input type="file" accept="image/*" onChange={handleImageChange} />
           </label>
           <button className="btn btn-primary mt-3" onClick={findSimilarImages}>
             Find Similar Images
@@ -70,13 +68,13 @@ const ViewImages = () => {
           <div className="col">
             <p className="h5">Matching Images:</p>
             <div className="image-container d-flex flex-wrap gap-5">
-              {similarImages.map((imageName, index) => (
+              {similarImages.map((imageUrl, index) => (
                 <div key={index} className="mb-3">
-                  <p className="mb-2">Image {index + 1}: {imageName}</p>
                   <img
-                    src={`http://localhost:5000/static/${imageName}`}
-                    alt={`Similar Image ${index}`}
+                    src={imageUrl}
+                    alt={`Matching Image ${index}`}
                     className="img-fluid"
+                    style={{ height: "200px", width: "200px" }}
                   />
                 </div>
               ))}
